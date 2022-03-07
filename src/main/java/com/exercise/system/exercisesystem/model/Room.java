@@ -4,24 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
-    private String Name;
+    private String name;
 
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "room")
+    private Set<Customer> customers = new HashSet<>();
+
+    @OneToMany(mappedBy = "room")
+    private Set<Post> posts = new HashSet<>();
 }

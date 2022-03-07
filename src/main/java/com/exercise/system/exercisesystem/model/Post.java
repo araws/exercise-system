@@ -4,26 +4,29 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
-    private String Title;
-    private String Description;
-    private OffsetDateTime createdDate;
+    private String title;
+    private String description;
+    private LocalDate createdDate;
 
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ID")
     private Room room;
-    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
+    private Customer customer;
 }

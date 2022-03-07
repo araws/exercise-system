@@ -1,14 +1,17 @@
 package com.exercise.system.exercisesystem.services.springdatajpa;
 
+import com.exercise.system.exercisesystem.model.Customer;
 import com.exercise.system.exercisesystem.model.Room;
 import com.exercise.system.exercisesystem.repositories.RoomRepository;
 import com.exercise.system.exercisesystem.services.RoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
+@Slf4j
 @Service
 public class RoomSDJpaService implements RoomService {
 
@@ -26,22 +29,25 @@ public class RoomSDJpaService implements RoomService {
     }
 
     @Override
-    public Room findById(UUID id) {
-        return roomRepository.findById(id).orElse(null);
+    public Optional<Room> findById(Long id) {
+        return roomRepository.findById(id);
     }
 
     @Override
     public Room save(Room room) {
+        log.debug("Saving a room...");
         return roomRepository.save(room);
     }
 
     @Override
     public void delete(Room room) {
+        log.debug("Deleting a room...");
         roomRepository.delete(room);
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
+        log.debug("Deleting a room...");
         roomRepository.deleteById(id);
     }
 }

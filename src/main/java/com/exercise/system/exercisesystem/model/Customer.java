@@ -4,22 +4,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+@Entity
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     private String firstName;
     private String lastName;
+
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ID")
+    private Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "POST_ID", referencedColumnName = "ID")
+    private Post posts;
 }
